@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Create Listing | Souk Atlas</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="styles.css" />
+    <link rel="stylesheet" href="seller.css" />
+  </head>
+  <body class="seller-page">
+    <header class="site-header seller-header">
+      <a class="brand" href="index.html" aria-label="Back to Souk Atlas homepage">
+        <span class="brand-mark">SA</span>
+        <span>Souk Atlas</span>
+      </a>
+      <div class="seller-header-title">
+        <strong>Create Listing</strong>
+        <span>Seller tools</span>
+      </div>
+      <nav class="nav-actions" aria-label="Seller navigation">
+        <a class="login-link" href="index.html">Back to Marketplace</a>
+      </nav>
+    </header>
+
+    <main class="listing-shell" id="createListingPage">
+      <aside class="listing-sidebar">
+        <p class="eyebrow">Seller Center</p>
+        <h1>Create Listing</h1>
+        <p>Post a meat product with photos, seller details, and a map-ready profile marker.</p>
+
+        <div class="progress-card" aria-label="Listing progress">
+          <div class="progress-row">
+            <span>Photos</span>
+            <strong id="photosProgress">0%</strong>
+          </div>
+          <div class="progress-track"><span id="progressBar"></span></div>
+          <ol>
+            <li>Add product photos</li>
+            <li>Enter meat product details</li>
+            <li>Complete seller profile</li>
+          </ol>
+        </div>
+      </aside>
+
+      <form class="listing-form" id="listingForm">
+        <section class="listing-card">
+          <div class="listing-card-heading">
+            <div>
+              <p class="eyebrow">Photos</p>
+              <h2>Add Photos</h2>
+            </div>
+            <span>Up to 8 images</span>
+          </div>
+
+          <label class="upload-zone" for="productImagesInput">
+            <input id="productImagesInput" type="file" accept="image/*" multiple />
+            <span class="upload-icon">+</span>
+            <strong>Add Photos</strong>
+            <small>Use clear product photos like Facebook Marketplace listings.</small>
+          </label>
+          <div class="preview-grid" id="productPreviewGrid" aria-live="polite"></div>
+        </section>
+
+        <section class="listing-card">
+          <div class="listing-card-heading">
+            <div>
+              <p class="eyebrow">Product Information</p>
+              <h2>What are you selling?</h2>
+            </div>
+          </div>
+
+          <div class="form-grid">
+            <label class="form-field field-wide">
+              <span>Title</span>
+              <input id="titleInput" type="text" placeholder="Fresh Beef" required />
+            </label>
+            <label class="form-field">
+              <span>Price (dh/kg)</span>
+              <input id="priceInput" type="number" min="1" step="1" placeholder="90" required />
+            </label>
+            <label class="form-field">
+              <span>Category</span>
+              <select id="categoryInput" required>
+                <option value="">Select category</option>
+                <option value="beef">Beef</option>
+                <option value="lamb">Lamb</option>
+                <option value="chicken">Chicken</option>
+                <option value="turkey">Turkey</option>
+                <option value="sardines">Sardines</option>
+              </select>
+            </label>
+          </div>
+        </section>
+
+        <section class="listing-card">
+          <div class="listing-card-heading">
+            <div>
+              <p class="eyebrow">Seller Profile</p>
+              <h2>Your seller details</h2>
+            </div>
+          </div>
+
+          <div class="profile-layout">
+            <label class="profile-upload" for="profileImageInput">
+              <input id="profileImageInput" type="file" accept="image/*" />
+              <img id="profilePreview" alt="" hidden />
+              <span id="profileInitials">SA</span>
+              <strong>Profile Image</strong>
+            </label>
+
+            <div class="form-grid">
+              <label class="form-field">
+                <span>Seller Name</span>
+                <input id="sellerNameInput" type="text" placeholder="Boucherie Atlas" required />
+              </label>
+              <label class="form-field">
+                <span>Phone Number</span>
+                <input id="phoneInput" type="tel" placeholder="06 12 34 56 78" required />
+              </label>
+              <label class="form-field field-wide">
+                <span>Location</span>
+                <input id="locationInput" type="text" placeholder="Rabat Medina" required />
+              </label>
+            </div>
+          </div>
+        </section>
+
+        <div class="form-actions">
+          <button class="draft-button" id="draftButton" type="button">Save Draft</button>
+          <button class="publish-button" id="publishButton" type="submit" disabled>Publish</button>
+        </div>
+      </form>
+    </main>
+
+    <script src="seller.js"></script>
+  </body>
+</html>

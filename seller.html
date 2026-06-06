@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Seller Shop | Souk Atlas</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+    <link rel="stylesheet" href="styles.css" />
+    <link rel="stylesheet" href="seller.css" />
+  </head>
+  <body class="seller-page">
+    <header class="site-header seller-header">
+      <a class="brand" href="index.html" aria-label="Back to Souk Atlas homepage">
+        <span class="brand-mark">SA</span>
+        <span>Souk Atlas</span>
+      </a>
+      <div class="seller-header-title">
+        <strong>Shop View</strong>
+        <span>Seller information</span>
+      </div>
+      <nav class="nav-actions" aria-label="Seller profile navigation">
+        <a class="login-link" href="index.html">Back to Map</a>
+      </nav>
+    </header>
+
+    <main class="seller-profile-shell" id="sellerProfilePage">
+      <a class="back-to-map" href="index.html">Back to map</a>
+
+      <section class="seller-profile-hero">
+        <div class="seller-profile-avatar" id="profilePageAvatar"></div>
+        <div>
+          <p class="eyebrow">Seller Profile</p>
+          <h1 id="profilePageName">Seller</h1>
+          <p id="profilePageProduct">Product type</p>
+          <div class="profile-badges">
+            <span class="best-price-badge" id="bestPriceBadge" hidden>Best Price</span>
+          </div>
+        </div>
+        <strong class="profile-price" id="profilePagePrice">--dh/kg</strong>
+      </section>
+
+      <section class="profile-grid">
+        <article class="profile-card">
+          <p class="eyebrow">Contact</p>
+          <h2>Contact seller</h2>
+          <a class="contact-link" id="phoneLink" href="#">Call seller</a>
+          <a class="whatsapp-link" id="whatsappLink" href="#" target="_blank" rel="noreferrer">WhatsApp</a>
+        </article>
+
+        <article class="profile-card">
+          <p class="eyebrow">Location</p>
+          <h2 id="profileLocation">Seller location</h2>
+          <div class="seller-mini-map" id="sellerMiniMap" aria-label="Seller location map"></div>
+        </article>
+      </section>
+
+      <section class="profile-card">
+        <div class="listing-card-heading">
+          <div>
+            <p class="eyebrow">Gallery</p>
+            <h2>Product photos</h2>
+          </div>
+        </div>
+        <div class="seller-gallery" id="sellerGallery"></div>
+      </section>
+    </main>
+
+    <div class="gallery-lightbox" id="galleryLightbox" hidden>
+      <button type="button" id="closeLightbox" aria-label="Close image">&times;</button>
+      <img id="lightboxImage" alt="" />
+    </div>
+
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+    <script src="seller.js"></script>
+  </body>
+</html>

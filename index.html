@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Souk Atlas | Local Marketplace</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+    <link rel="stylesheet" href="https://unpkg.com/leaflet.markercluster@1.5.3/dist/MarkerCluster.css" />
+    <link rel="stylesheet" href="https://unpkg.com/leaflet.markercluster@1.5.3/dist/MarkerCluster.Default.css" />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <header class="site-header">
+      <a class="brand" href="#" aria-label="Souk Atlas homepage">
+        <span class="brand-mark">SA</span>
+        <span>Souk Atlas</span>
+      </a>
+
+      <form class="nav-search" id="navSearch" role="search">
+        <span class="search-icon" aria-hidden="true"></span>
+        <input id="globalSearchInput" type="search" placeholder="Search products, sellers, or locations" aria-label="Search products, sellers, or locations" />
+      </form>
+
+      <nav class="nav-actions" aria-label="Primary navigation">
+        <a class="login-link" href="login.html">Login</a>
+        <a class="cart-link" href="cart.html" aria-label="Open cart">
+          Cart
+          <span id="cartCountBadge">0</span>
+        </a>
+        <a class="seller-cta" href="create-listing.html">Become a Seller</a>
+      </nav>
+    </header>
+
+    <main class="marketplace-page list-view" id="marketplacePage">
+      <section class="marketplace-heading" aria-labelledby="heroTitle">
+        <div>
+          <p class="eyebrow">Location-based shopping</p>
+          <h1 id="heroTitle">Find the best prices near you</h1>
+          <p>Compare trusted local sellers and browse live meat deals around Rabat.</p>
+        </div>
+        <div class="view-toggle" role="group" aria-label="Choose marketplace view">
+          <button class="active" id="listViewButton" type="button" aria-pressed="true">List View</button>
+          <button id="mapViewButton" type="button" aria-pressed="false">Map View</button>
+        </div>
+      </section>
+
+      <section class="marketplace-layout" aria-label="Marketplace map and product listings">
+        <aside class="map-column">
+          <div class="map-panel">
+            <div class="map-controls" aria-label="Map search controls">
+              <form class="map-search" id="mapSearch" role="search">
+                <span class="search-icon" aria-hidden="true"></span>
+                <input id="mapSearchInput" type="search" list="productSuggestions" placeholder="Try beef 80, chicken 90..." aria-label="Search sellers on the map" />
+                <button type="submit">Search</button>
+              </form>
+              <datalist id="productSuggestions">
+                <option value="Beef"></option>
+                <option value="Lamb"></option>
+                <option value="Chicken"></option>
+                <option value="Sardine"></option>
+                <option value="Turkey"></option>
+              </datalist>
+              <button class="location-button" id="locationButton" type="button">Use my location</button>
+            </div>
+            <div class="search-status" id="searchStatus" role="status" aria-live="polite"></div>
+            <div class="map-layout">
+              <div id="map" class="leaflet-map" role="application" aria-label="Interactive map of sellers near Rabat"></div>
+              <aside class="map-side-panel" id="mapSidePanel" aria-live="polite" aria-label="Seller details" hidden>
+                <button class="panel-close" id="mapPanelClose" type="button" aria-label="Close seller details">&times;</button>
+                <p class="eyebrow">Seller details</p>
+                <div class="map-panel-seller" id="mapPanelSeller"></div>
+                <div class="map-panel-products" id="mapPanelProducts"></div>
+                <a class="view-shop-button" id="mapPanelLink" href="#">View Shop</a>
+              </aside>
+              <!-- Mobile floating action button for smooth scrolling to deals -->
+              <button id="viewDealsMobileBtn" class="mobile-floating-btn" type="button">
+                <span>View deals near you</span>
+                <svg class="chevron-down-icon" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+                  <polyline points="6 9 12 15 18 9"></polyline>
+                </svg>
+              </button>
+            </div>
+          </div>
+        </aside>
+
+        <section class="products-column" aria-labelledby="productsTitle">
+          <div class="products-filter-sticky">
+            <div class="products-heading">
+              <div>
+                <p class="eyebrow">Live listings</p>
+                <h2 id="productsTitle">Meat deals near you</h2>
+                <p class="best-price-highlight" id="bestPriceHighlight">Best beef price today: --dh/kg</p>
+              </div>
+              <span id="productResultCount">0 listings</span>
+            </div>
+
+            <div class="market-filters" aria-label="Marketplace filters">
+              <label>
+                <span>Product</span>
+                <select id="productFilter">
+                  <option value="all">All products</option>
+                  <option value="beef">Beef</option>
+                  <option value="lamb">Lamb</option>
+                  <option value="chicken">Chicken</option>
+                  <option value="sardines">Sardine</option>
+                  <option value="turkey">Turkey</option>
+                </select>
+              </label>
+              
+              <label>
+                <span>City / Region</span>
+                <select id="cityFilter">
+                  <option value="all">All cities</option>
+                  <option value="rabat">Rabat</option>
+                  <option value="casablanca">Casablanca</option>
+                  <option value="sale">Salé</option>
+                  <option value="temara">Temara</option>
+                  <option value="marrakech">Marrakech</option>
+                  <option value="fes">Fes</option>
+                  <option value="tangier">Tangier</option>
+                </select>
+              </label>
+
+              <label>
+                <span>Max price</span>
+                <div class="price-range-control">
+                  <input id="priceRangeFilter" type="range" min="70" max="110" value="110" />
+                  <strong id="priceRangeLabel">Up to 110dh</strong>
+                </div>
+              </label>
+              
+              <label class="distance-filter-wrap">
+                <span>Distance</span>
+                <select id="distanceFilter">
+                  <option value="all">Any distance</option>
+                  <option value="3">Under 3km</option>
+                  <option value="6">Under 6km</option>
+                  <option value="12">Under 12km</option>
+                </select>
+              </label>
+            </div>
+          </div>
+
+          <div class="products-scroll-container">
+            <div class="product-grid" id="featuredProducts"></div>
+          </div>
+        </section>
+      </section>
+
+      <section class="section-wrap steps-section" aria-labelledby="stepsTitle">
+        <div class="section-heading centered">
+          <div>
+            <p class="eyebrow">How it works</p>
+            <h2 id="stepsTitle">From location to local seller in three steps</h2>
+          </div>
+        </div>
+
+        <div class="steps-grid">
+          <article class="step-card">
+            <span aria-hidden="true">1</span>
+            <h3>Choose your location</h3>
+            <p>Start from your neighborhood or search for a market area.</p>
+          </article>
+          <article class="step-card">
+            <span aria-hidden="true">2</span>
+            <h3>Compare prices</h3>
+            <p>Check nearby sellers, product lists, and starting prices.</p>
+          </article>
+          <article class="step-card">
+            <span aria-hidden="true">3</span>
+            <h3>Contact the seller</h3>
+            <p>Open a shop profile and continue directly with the vendor.</p>
+          </article>
+        </div>
+      </section>
+    </main>
+
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+    <script src="https://unpkg.com/leaflet.markercluster@1.5.3/dist/leaflet.markercluster.js"></script>
+    <script src="app.js"></script>
+  </body>
+</html>

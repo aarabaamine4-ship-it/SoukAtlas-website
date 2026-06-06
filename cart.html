@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Your Cart | Souk Atlas</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="styles.css" />
+    <link rel="stylesheet" href="cart.css" />
+  </head>
+  <body class="cart-page">
+    <header class="site-header">
+      <a class="brand" href="index.html" aria-label="Souk Atlas homepage">
+        <span class="brand-mark">SA</span>
+        <span>Souk Atlas</span>
+      </a>
+      <div class="cart-header-copy">
+        <strong>Checkout</strong>
+        <span>Fresh local products delivered from nearby sellers</span>
+      </div>
+      <nav class="nav-actions" aria-label="Cart navigation">
+        <a class="login-link" href="index.html">Continue shopping</a>
+      </nav>
+    </header>
+
+    <main class="cart-shell">
+      <section class="cart-title">
+        <p class="eyebrow">Your order</p>
+        <h1>Cart and delivery</h1>
+        <p>Review quantities, choose delivery speed, and send your order request.</p>
+      </section>
+
+      <section class="cart-layout">
+        <div class="cart-items-panel">
+          <div class="cart-panel-heading">
+            <div>
+              <p class="eyebrow">Products</p>
+              <h2>Selected items</h2>
+            </div>
+            <span id="cartItemsCount">0 items</span>
+          </div>
+          <div class="cart-items-list" id="cartItemsList"></div>
+        </div>
+
+        <aside class="checkout-panel">
+          <div class="summary-card">
+            <p class="eyebrow">Summary</p>
+            <h2>Order summary</h2>
+            <div class="summary-row">
+              <span>Subtotal</span>
+              <strong id="cartSubtotal">0dh</strong>
+            </div>
+            <div class="summary-row">
+              <span>Delivery</span>
+              <strong id="cartDeliveryFee">0dh</strong>
+            </div>
+            <div class="summary-row total">
+              <span>Total</span>
+              <strong id="cartTotal">0dh</strong>
+            </div>
+            <p class="delivery-estimate" id="deliveryEstimate">Estimated delivery: 45-60 min</p>
+          </div>
+
+          <form class="delivery-form" id="deliveryForm">
+            <p class="eyebrow">Delivery details</p>
+            <h2>Where should sellers deliver?</h2>
+
+            <label>
+              <span>Full name</span>
+              <input id="fullNameInput" type="text" autocomplete="name" required />
+            </label>
+
+            <label>
+              <span>Phone number</span>
+              <input id="phoneInput" type="tel" autocomplete="tel" required />
+            </label>
+
+            <label>
+              <span>City</span>
+              <select id="cityInput" required>
+                <option value="">Choose city</option>
+                <option>Rabat</option>
+                <option>Sale</option>
+                <option>Temara</option>
+                <option>Casablanca</option>
+                <option>Marrakech</option>
+                <option>Fes</option>
+                <option>Tangier</option>
+              </select>
+            </label>
+
+            <label>
+              <span>Address</span>
+              <textarea id="addressInput" rows="4" required></textarea>
+            </label>
+
+            <label>
+              <span>Optional note</span>
+              <textarea id="noteInput" rows="3" placeholder="Building, landmark, preferred time..."></textarea>
+            </label>
+
+            <fieldset class="delivery-options">
+              <legend>Delivery option</legend>
+              <label>
+                <input type="radio" name="deliveryOption" value="standard" checked />
+                <span>Standard</span>
+                <strong>Free</strong>
+              </label>
+              <label>
+                <input type="radio" name="deliveryOption" value="express" />
+                <span>Express</span>
+                <strong>+20dh</strong>
+              </label>
+            </fieldset>
+
+            <button class="place-order-button" id="placeOrderButton" type="submit">Place Order</button>
+            <p class="checkout-message" id="checkoutMessage" role="status" aria-live="polite"></p>
+          </form>
+        </aside>
+      </section>
+    </main>
+
+    <template id="cartItemTemplate">
+      <article class="cart-item">
+        <img class="cart-item-image" alt="" />
+        <div class="cart-item-copy">
+          <h3></h3>
+          <p></p>
+          <strong></strong>
+        </div>
+        <div class="quantity-control" aria-label="Quantity controls">
+          <button type="button" data-action="decrease">-</button>
+          <span></span>
+          <button type="button" data-action="increase">+</button>
+        </div>
+        <button class="remove-cart-item" type="button" data-action="remove">Remove</button>
+      </article>
+    </template>
+
+    <script src="cart.js"></script>
+  </body>
+</html>
